@@ -10,7 +10,7 @@ int main(int __attribute__((unused)) ac, char **av)
         i++;
     }
 
-        printf("Nombre total d'arguments (y compris le nom du programme) : %d\n", i);
+        printf("The total number of arguments (including the program name) : %d\n", i);
 
     return 0;
 }
