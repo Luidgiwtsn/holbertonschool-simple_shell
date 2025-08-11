@@ -16,6 +16,9 @@ int main(void)
             printf("\nFin de lecture détectée. Arrêt du programme.\n");
             break;
         }
+        if (line[nread - 1] == '\n')
+            line[nread - 1] = '\0';
+
         // Affiche la ligne saisie (avec le saut de ligne déjà inclus)
         printf("%s", line);
     }
