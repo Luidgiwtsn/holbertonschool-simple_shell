@@ -1,21 +1,16 @@
 #include <stdio.h>
 
-/**
- * main - Prints all arguments without using argc
- * @ac: (unused)
- * @av: argument vector
- *
- * Return: Always 0.
- */
-int main(__attribute__((unused)) int ac, char **av)
+int main(int __attribute__((unused)) ac, char **av)
 {
     int i = 0;
 
     while (av[i] != NULL)
     {
-        printf("%s\n", av[i]);
+        printf("Argument %d: %s\n", i, av[i]);
         i++;
     }
+
+        printf("Nombre total d'arguments (y compris le nom du programme) : %d\n", i);
 
     return 0;
 }
