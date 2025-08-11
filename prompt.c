@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>#define MAX_LEN 1024int main(void)
+#include <stdlib.h>
+#define MAX_LEN 1024
+int main(void)
 {
     char *line = NULL;
     size_t len = 0;
