@@ -14,9 +14,10 @@ int main(void)
     {
         /* Affiche le prompt */
         printf("#cisfun$ ");
-        fflush(stdout);
+        fflush(stdout); /* vidage memoire et affichage immediat */
 
-        /* Lit la ligne entrée par l'utilisateur */
+
+        /* Lit la ligne entrée par l'utilisateur (fgets = lit la ligne de txt et s arrete si saut a la ligne / max de mot autho / ou fin du fichier )lecture de la commande d el'utilisateur  */
         if (fgets(line, sizeof(line), stdin) == NULL)
         {
             /* Ctrl+D ou erreur de lecture */
@@ -24,14 +25,14 @@ int main(void)
             break;
         }
 
-        /* Supprime le saut de ligne final */
+        /* Supprime le saut de ligne final strcspn = recherche un saut et met un car. spé (qui dit fin de phrase) à la place */
         line[strcspn(line, "\n")] = '\0';
 
         /* Ignore les lignes vides */
         if (line[0] == '\0')
             continue;
 
-        pid_t pid = fork();
+        pid_t pid = fork(); /* pid_t (type) qui stock un PID (N° d'identification du processus) creer un nouveau processus quand tu l'appeles le pro se duplique */
 
         if (pid == -1)
         {
