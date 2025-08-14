@@ -32,6 +32,8 @@ int count_directories(PathNode *head);
 PathNode *build_path_list(void);
 PathNode *create_node(const char *directory);
 PathNode *parse_path(const char *path_env);
+
+
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 void print_environ(void);
@@ -40,7 +42,7 @@ int _unsetenv(const char *name);
 
 
 
-
-
+char **smart_tokenize(const char *input); /* decour en tokens sur une cdopie donc safe */
+```
 
 #endif /* __MAIN_H__ */
