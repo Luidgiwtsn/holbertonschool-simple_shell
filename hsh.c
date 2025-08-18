@@ -10,22 +10,22 @@
 char *read_and_clean_line(void);
 char **split_line(char *line);
 void execve_hsh(char **args, int line_number);
-void free_args(char **args, int line_number);
+void free_args(char **args);
 char *_getenv(const char *name);
 
 int main(void)
 
 {
     char *line = NULL;
-    size_t len = 0;
+    char **args = NULL;
     int status;
     int line_number = 1;
     int argc = 0;
-    ssize_t nread;
 
     while (1)
     {
       line = read_and_clean_line();
+    args = split_line(line);
         if (line == NULL) // EOF or error
         {    printf("\n");
             break;

@@ -46,7 +46,6 @@ char *_getenv(const char *name);
 
 
 
-
 char **smart_tokenize(const char *input); /* decour en tokens sur une cdopie donc safe */
 
 #endif /* __MAIN_H__ */
