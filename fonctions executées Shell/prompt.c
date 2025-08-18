@@ -3,7 +3,7 @@
 
 #define MAX_LEN 1024
 
-int main(void)
+#include <string.h>
 {
     char *line = NULL;
     size_t len = 0;
@@ -11,7 +11,7 @@ int main(void)
 
     while (1)
     {
-        printf("$ ");
+        printf("hsh>$ ");
         nread = getline(&line, &len, stdin);
         if (nread == -1)  /* Fin du fichier (Ctrl+D) ou erreur */
             break;

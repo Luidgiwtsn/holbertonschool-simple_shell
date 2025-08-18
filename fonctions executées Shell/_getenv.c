@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 
 /* Déclaration externe d'environ */
 extern char **environ;
@@ -51,47 +52,6 @@ char *_getenv(const char *name)
 
     /* Variable non trouvée */
     return (NULL);
+    
 }
 
-/* Fonction de test pour démontrer l'utilisation */
-int main(void)
-{
-    char *valeur;
-    
-    printf("Test de la fonction _getenv :\n\n");
-    
-    /* Tester avec quelques variables d'environnement courantes */
-    valeur = _getenv("PATH");
-    if (valeur)
-        printf("PATH = %s\n\n", valeur);
-    else
-        printf("PATH non trouvé\n\n");
-    
-    valeur = _getenv("HOME");
-    if (valeur)
-        printf("HOME = %s\n\n", valeur);
-    else
-        printf("HOME non trouvé\n\n");
-    
-    valeur = _getenv("USER");
-    if (valeur)
-        printf("USER = %s\n\n", valeur);
-    else
-        printf("USER non trouvé\n\n");
-    
-    /* Tester avec une variable inexistante */
-    valeur = _getenv("VARIABLE_INEXISTANTE");
-    if (valeur)
-        printf("VARIABLE_INEXISTANTE = %s\n\n", valeur);
-    else
-        printf("VARIABLE_INEXISTANTE non trouvée\n\n");
-    
-    /* Tester avec une entrée NULL */
-    valeur = _getenv(NULL);
-    if (valeur)
-        printf("Test NULL = %s\n", valeur);
-    else
-        printf("Entrée NULL a correctement retourné NULL\n");
-    
-    return (0);
-}
