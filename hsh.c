@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include "main.h"
 
 #define MAX_ARGS 100
@@ -16,10 +11,8 @@ char *_getenv(const char *name);
 int main(void)
 
 {
-    char *line = NULL;
-    char **args = NULL;
-    int status;
-    int line_number = 1;
+    char *line, **args = NULL;
+    int status, line_number = 1;
     int argc = 0;
     pid_t pid;
 
@@ -27,30 +20,22 @@ int main(void)
     {
       line = read_and_clean_line();
         if (line == NULL) // EOF or error
-        {    printf("\n");
-            break;
+        {    printf("\n"); break;
         }
-       printf("%s\n", line);
-        line_number++;
-
+       printf("%s\n", line);line_number++;
         args = split_line(line);
         if (args[0] == NULL)
         {
             free(line);
-            free_args(args);
-            line_number++;
-            continue;
+            free_args(args);line_number++;continue;
         }
-        while (args[argc] != NULL)
-            argc++;
-
+        while (args[argc] != NULL) argc++;
         if (argc == 0)
         {
             free(line);
             free_args(args);
             continue;
         }
-        // Commande "exit"
         if (strcmp(args[0], "exit") == 0)
             break;
         // Commande "cd"
