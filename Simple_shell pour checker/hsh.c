@@ -20,15 +20,20 @@ int main(void)
     {
       line = read_and_clean_line();
         if (line == NULL) // EOF or error
-        {    printf("\n"); break;
+        {    printf("\n"); 
+            break;
         }
-       printf("%s\n", line);line_number++;
+       printf("%s\n", line);
+       line_number++;
         args = split_line(line);
         if (args[0] == NULL)
         {
             free(line);
-            free_args(args);line_number++;continue;
+            free_args(args);
+            line_number++;
+            continue;
         }
+        argc = 0;
         while (args[argc] != NULL) argc++;
         if (argc == 0)
         {
@@ -37,7 +42,10 @@ int main(void)
             continue;
         }
         if (strcmp(args[0], "exit") == 0)
+            {free(line);
+            free_args(args);
             break;
+            }
         // Commande "cd"
         if (strcmp(args[0], "cd") == 0)
         {
@@ -52,7 +60,8 @@ int main(void)
         pid = fork();
         if (pid == 0)
         {
-            execve_hsh(args, line_number); // fonction séparée
+            execve_hsh(args, line_number);
+             exit(EXIT_FAILURE); // fonction séparée
         }
         else if (pid > 0)
         {
