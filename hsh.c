@@ -25,7 +25,6 @@ int main(void)
     while (1)
     {
       line = read_and_clean_line();
-    args = split_line(line);
         if (line == NULL) // EOF or error
         {    printf("\n");
             break;
@@ -33,7 +32,7 @@ int main(void)
        printf("%s\n", line);
         line_number++;
 
-        char **args = split_line(line);
+        args = split_line(line);
         if (args[0] == NULL)
         {
             free(line);
