@@ -21,6 +21,7 @@ int main(void)
     int status;
     int line_number = 1;
     int argc = 0;
+    pid_t pid;
 
     while (1)
     {
@@ -63,7 +64,7 @@ int main(void)
             line_number++;
             continue;
         }
-        pid_t pid = fork();
+        pid = fork();
         if (pid == 0)
         {
             execve_hsh(args, line_number); // fonction séparée
