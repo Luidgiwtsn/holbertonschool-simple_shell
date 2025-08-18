@@ -39,7 +39,7 @@ int _unsetenv(const char *name);
 
 char *read_and_clean_line(void); // c'est prompt.c
 char **split_line(char *line); // c'ezst prompt.c les 2 regroupés 
-void execve_hsh ();
+void execve_hsh(void);
 void free_args(char **args);
 char *_getenv(const char *name);
 
