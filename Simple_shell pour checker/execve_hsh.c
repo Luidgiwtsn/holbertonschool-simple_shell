@@ -1,19 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include "main.h"   /* déclare find_in_path */
 
-
-extern char **environ;
-
-void execve_hsh(void)
+void execve_hsh(char **args, int line_number)
 {
-    char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
+    char *cmd_path;
 
-    printf("Before execve\n");
-    if (execve(argv[0], argv, NULL) == -1)
+    (void)line_number; /* évite warning unused parameter */
+
+    if (args[0][0] == '/' || args[0][0] == '.')
     {
-        perror("Error:");
+        cmd_path = args[0]; /* chemin absolu ou relatif */
+    }
+    else
+    {
+        cmd_path = find_in_path(args[0]);
+        if (!cmd_path)
+        {
+            fprintf(stderr, "hsh: command not found: %s\n", args[0]);
+            exit(127);
+        }
     }
 
-    // Cette ligne ne sera jamais atteinte si execve réussit
-    printf("After execve\n");
+    if (execve(cmd_path, args, environ) == -1)
+    {
+        perror("execve");
+        exit(EXIT_FAILURE);
+    }
 }
