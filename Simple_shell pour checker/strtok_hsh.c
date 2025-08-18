@@ -1,35 +1,28 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h> 
 #include "main.h"
+
+
 
 char **split_line(char *line)
 {
     int bufsize = 64, position = 0;
     char **tokens = malloc(bufsize * sizeof(char *));
-    char *token;
+    char *token; char **tmp;
 
-    if (!tokens)
-    {
-        fprintf(stderr, "Allocation error\n");
-        exit(EXIT_FAILURE);
-    }
+    if (!tokens) return NULL;
 
     token = strtok(line, " \t\r\n");
-    while (token != NULL)
+    while (token)
     {
-        tokens[position++] = token;
-
-        if (position >= bufsize)
-        {
-            bufsize += 64;
-            tokens = realloc(tokens, bufsize * sizeof(char *));
-            if (!tokens)
-            {
-                fprintf(stderr, "Allocation error\n");
-                exit(EXIT_FAILURE);
-            }
+        if (position >= bufsize - 1) {
+            bufsize *= 2;
+            tmp = realloc(tokens, bufsize * sizeof(char *));
+            if (!tmp) { free(tokens); return NULL; }
+            tokens = tmp;
         }
+        tokens[position++] = strdup(token);  // <-- dupliquer
         token = strtok(NULL, " \t\r\n");
     }
     tokens[position] = NULL;
