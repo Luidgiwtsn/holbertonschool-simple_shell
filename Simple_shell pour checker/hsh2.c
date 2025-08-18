@@ -12,7 +12,7 @@ int main(void)
 
 {
     char *line, **args = NULL;
-    int status, line_number = 1;
+    int status, line_number = 0;
     int argc = 0;
     pid_t pid;
 
@@ -23,7 +23,7 @@ int main(void)
         {    printf("\n"); 
             break;
         }
-		line_number++;
+		
         args = split_line(line);
         if (args[0] == NULL)
         {
@@ -31,6 +31,7 @@ int main(void)
             free_args(args);
             continue;
         }
+		line_number++;
         argc = 0;
         while (args[argc] != NULL) 
         argc++;
@@ -53,7 +54,7 @@ int main(void)
         pid = fork();
         if (pid == 0)
         {
-            execve_hsh(args, line_number - 1);
+            execve_hsh(args, line_number);
              exit(EXIT_FAILURE); // fonction séparée
         }
         else if (pid > 0)

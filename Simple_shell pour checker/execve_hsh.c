@@ -18,7 +18,7 @@ void execve_hsh(char **args, int line_number)
         cmd_path = find_in_path(args[0]);
         if (!cmd_path)
         {
-            fprintf(stderr, "hsh: command not found: %s\n", args[0]);
+            fprintf(stderr, "hsh: %d: %s: command not found\n", line_number, args[0]);
             exit(127);
         }
     }
