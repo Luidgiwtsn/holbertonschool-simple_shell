@@ -4,7 +4,7 @@
 
 extern char **environ;
 
-void execve_hsh(char **args, int line_number)
+void execve_hsh()
 {
     char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
 
