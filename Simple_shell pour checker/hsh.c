@@ -25,6 +25,7 @@ int main(void)
         }
        printf("%s\n", line);
        line_number++;
+
         args = split_line(line);
         if (args[0] == NULL)
         {
@@ -34,7 +35,9 @@ int main(void)
             continue;
         }
         argc = 0;
-        while (args[argc] != NULL) argc++;
+        while (args[argc] != NULL) 
+        argc++;
+        
         if (argc == 0)
         {
             free(line);

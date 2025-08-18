@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void execve_hsh(void)
+
+extern char **environ;
+
+void execve_hsh(char **args, int line_number)
 {
     char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
 
