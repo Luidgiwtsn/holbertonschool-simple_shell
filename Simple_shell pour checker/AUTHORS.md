@@ -1,4 +1,0 @@
-This file lists all individuals having contributed content to the repository.
-
-Luidgi Watson : 11499@holbertonstudents.com
-Thomas Decourt : 11483@holbertonstudents.com
