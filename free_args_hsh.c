@@ -1,22 +1,18 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "main.h"
-/**
- * free_args - Free an array of strings (arguments).
- * @args: The array of strings to free.
- *
- * Description: This function frees each string in the array
- * and then frees the array itself.
- */
 
+/**
+ * free_args - Free array of strings
+ * @args: Array to free
+ */
 void free_args(char **args)
 {
     int i;
+
     if (!args)
-		return;
+        return;
 
     for (i = 0; args[i] != NULL; i++)
         free(args[i]);
+
     free(args);
 }
