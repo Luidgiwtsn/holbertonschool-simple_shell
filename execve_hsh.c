@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include "main.h"  
 
+extern char **environ;
+
 void execve_hsh(char **args, int line_number)
 {
     char *cmd_path;
