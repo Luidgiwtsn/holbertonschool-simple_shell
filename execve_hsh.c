@@ -21,7 +21,7 @@ void execve_hsh(char **args, int line_number, char *shell_name)
         }
         if (access(cmd_path, X_OK) != 0)
         {
-            fprintf(stderr, "%s: %d: %s: Permission denied\n", shell_name, line_number, args[0]);
+            fprintf(stderr, "%s: line %d: %s: Permission denied\n", shell_name, line_number, args[0]);
             exit(126);
         }
     }
@@ -30,7 +30,7 @@ void execve_hsh(char **args, int line_number, char *shell_name)
         cmd_path = find_in_path(args[0]);
         if (!cmd_path)
         {
-            fprintf(stderr, "./hsh: %d: %s: not found\n", line_number, args[0]);
+            fprintf(stderr, "%s: line %d: %s: command not found\n", shell_name, line_number, args[0]);
             exit(127);
         }
         path_allocated = 1;
