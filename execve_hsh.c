@@ -4,8 +4,9 @@
  * execve_hsh - Execute command using execve
  * @args: Arguments array
  * @line_number: Line number for error messages
+ * @shell_name: Name of shell (argv[0])
  */
-void execve_hsh(char **args, int line_number)
+void execve_hsh(char **args, int line_number, char *shell_name)
 {
     char *cmd_path = NULL;
     int path_allocated = 0;
@@ -15,12 +16,12 @@ void execve_hsh(char **args, int line_number)
         cmd_path = args[0];
         if (access(cmd_path, F_OK) != 0)
         {
-            fprintf(stderr, "hsh: %d: %s: not found\n", line_number, args[0]);
+            fprintf(stderr, "%s: line %d: %s: command not found\n", shell_name, line_number, args[0]);
             exit(127);
         }
         if (access(cmd_path, X_OK) != 0)
         {
-            fprintf(stderr, "hsh: %d: %s: Permission denied\n", line_number, args[0]);
+            fprintf(stderr, "%s: %d: %s: Permission denied\n", shell_name, line_number, args[0]);
             exit(126);
         }
     }
