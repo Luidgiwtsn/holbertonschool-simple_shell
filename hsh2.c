@@ -5,11 +5,12 @@
  *
  * Return: 0 on success
  */
-int main(void)
+int main(int argc, char **argv)
 {
     char *line, **args = NULL;
     int status, line_number = 0;
     pid_t pid;
+    (void) argc;
 
     while (1)
     {
@@ -57,7 +58,7 @@ int main(void)
         pid = fork();
         if (pid == 0)
         {
-            execve_hsh(args, line_number);
+            execve_hsh(args, line_number, argv[0]);
             exit(127);
         }
         else if (pid > 0)
