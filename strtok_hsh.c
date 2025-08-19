@@ -22,7 +22,7 @@ char **split_line(char *line)
             if (!tmp) { free(tokens); return NULL; }
             tokens = tmp;
         }
-        tokens[position++] = strdup(token);  // <-- dupliquer
+        tokens[position++] = strdup(token);  
         token = strtok(NULL, " \t\r\n");
     }
     tokens[position] = NULL;

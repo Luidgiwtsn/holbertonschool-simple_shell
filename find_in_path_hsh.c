@@ -23,15 +23,15 @@ char *find_in_path(const char *cmd)
     if (!path_env)
         return NULL;
 
-    /* Dupliquer PATH car strtok modifie la chaîne */
-    path_copy = strdup(path_env);
+
+        path_copy = strdup(path_env);
     if (!path_copy)
         return NULL;
 
     dir = strtok(path_copy, ":");
     while (dir != NULL)
     {
-        len = strlen(dir) + strlen(cmd) + 2; /* '/' + '\0' */
+        len = strlen(dir) + strlen(cmd) + 2;
         full_path = malloc(len);
         if (!full_path)
         {
@@ -44,7 +44,7 @@ char *find_in_path(const char *cmd)
         if (access(full_path, X_OK) == 0)
         {
             free(path_copy);
-            return full_path; /* trouvé */
+            return full_path;
         }
 
         free(full_path);

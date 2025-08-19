@@ -20,12 +20,12 @@ typedef struct PathNode
 	struct PathNode *next;
 } PathNode;
 
-/* Define the maximum length of a command */
+
 #define MAX_CMD_LEN 100
 
 extern char **environ;
 
-/* Function prototypes */
+
 void free_path_list(PathNode *head);
 void print_path_list(PathNode *head);
 int count_directories(PathNode *head);
@@ -37,15 +37,15 @@ int _setenv(const char *name, const char *value, int overwrite);
 void print_environ(void);
 int _unsetenv(const char *name);
 
-char *read_and_clean_line(void); // c'est prompt.c
-char **split_line(char *line); // c'ezst prompt.c les 2 regroupés 
-void execve_hsh(char **args, int line_number); // execve_hsh.c
+char *read_and_clean_line(void); 
+char **split_line(char *line);  
+void execve_hsh(char **args, int line_number);  
 void free_args(char **args);
 char *_getenv(const char *name);
 char *find_in_path(const char *cmd);
 
 
 
-char **smart_tokenize(const char *input); /* decour en tokens sur une cdopie donc safe */
+char **smart_tokenize(const char *input); 
 
-#endif /* __MAIN_H__ */
+#endif 

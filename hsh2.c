@@ -19,7 +19,7 @@ int main(void)
     while (1)
     {
       line = read_and_clean_line();
-        if (line == NULL) // EOF or error
+        if (line == NULL) 
         {    printf("\n"); 
             break;
         }
@@ -41,10 +41,10 @@ int main(void)
             free_args(args);
             break;
             }
-        // Commande "cd"
+       
         if (strcmp(args[0], "cd") == 0)
         {
-            const char *path = args[1] ? args[1] : _getenv("HOME"); // prendre le _getenv de l'exo
+            const char *path = args[1] ? args[1] : _getenv("HOME"); 
             if (chdir(path) != 0)
                 perror("cd");
                   free(line);
@@ -55,7 +55,7 @@ int main(void)
         if (pid == 0)
         {
             execve_hsh(args, line_number);
-             exit(EXIT_FAILURE); // fonction séparée
+             exit(EXIT_FAILURE); 
         }
         else if (pid > 0)
         {

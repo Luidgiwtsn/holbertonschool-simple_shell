@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "main.h"   /* déclare find_in_path */
+#include "main.h"  
 
 void execve_hsh(char **args, int line_number)
 {
     char *cmd_path;
-    (void)line_number; /* évite warning unused parameter */
+    (void)line_number; 
 
     if (args[0][0] == '/' || args[0][0] == '.')
     {
-        cmd_path = args[0]; /* chemin absolu ou relatif */
+        cmd_path = args[0]; 
     }
     else
     {
