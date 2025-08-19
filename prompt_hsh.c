@@ -18,7 +18,7 @@ char *read_and_clean_line(void)
 
     if (isatty(STDIN_FILENO))
     {
-        printf("hsh>$ ");
+        printf("$ ");
         fflush(stdout);
     }
 
