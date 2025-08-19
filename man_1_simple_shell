@@ -1,0 +1,100 @@
+NOM
+simple_shell - Un interpréteur de commandes simple
+SYNOPSIS
+simple_shell
+DESCRIPTION
+simple_shell est un interpréteur de commandes basique qui fournit une interface en ligne de commande pour interagir avec le système d'exploitation. Il lit les commandes de l'utilisateur, les analyse et les exécute.
+FONCTIONNALITÉS
+Commandes intégrées (Built-ins)
+
+exit : Quitte le shell
+cd [RÉPERTOIRE] : Change le répertoire courant
+
+Sans argument, change vers le répertoire HOME
+Avec un argument, change vers le répertoire spécifié
+
+
+
+Exécution de programmes
+Le shell peut exécuter n'importe quel programme disponible dans le système en utilisant le nom du programme suivi de ses arguments.
+Gestion des processus
+
+Crée un processus enfant pour chaque commande externe
+Attend la fin d'exécution de chaque commande avant d'afficher le prochain prompt
+
+UTILISATION
+Mode interactif
+Lancez simplement simple_shell pour démarrer en mode interactif :
+$ ./simple_shell
+$$ ls -l
+$$ cd /tmp
+$$ pwd
+$$ exit
+Comportement
+
+Le shell affiche un prompt et attend une commande
+Après chaque commande, un nouveau prompt est affiché
+Le shell se termine avec la commande exit ou avec Ctrl+D (EOF)
+Les lignes vides sont ignorées
+
+EXEMPLES
+bash# Lancement du shell
+$ ./simple_shell
+
+# Lister les fichiers du répertoire courant
+$$ ls
+
+# Naviguer dans un répertoire
+$$ cd /home/user
+
+# Retourner au répertoire HOME
+$$ cd
+
+# Afficher le répertoire courant
+$$ pwd
+
+# Exécuter une commande avec arguments
+$$ ls -la
+
+# Quitter le shell
+$$ exit
+GESTION DES ERREURS
+
+Commande inexistante : Affiche un message d'erreur avec le numéro de ligne
+cd vers un répertoire inexistant : Affiche "cd: No such file or directory"
+Erreur de fork : Affiche "fork: Resource temporarily unavailable"
+
+LIMITATIONS
+
+Nombre maximum d'arguments par commande : 100
+Pas de support pour les pipes (|)
+Pas de support pour les redirections (>, <, >>)
+Pas de support pour les variables d'environnement personnalisées
+Pas de support pour l'expansion des wildcards (*, ?, [])
+Pas de support pour l'historique des commandes
+Pas de support pour l'auto-complétion
+
+VARIABLES D'ENVIRONNEMENT
+
+HOME : Utilisée par la commande cd quand aucun argument n'est fourni
+PATH : Utilisée pour rechercher les programmes exécutables
+
+CODES DE RETOUR
+
+0 : Succès
+1 : Erreur générale
+127 : Commande non trouvée
+
+FICHIERS
+
+main.h : Fichier d'en-tête contenant les déclarations de fonctions
+Aucun fichier de configuration n'est lu
+
+CONFORMITÉ
+Ce shell implémente un sous-ensemble minimal des fonctionnalités POSIX pour les shells.
+AUTEUR
+[Votre nom]
+VOIR AUSSI
+sh(1), bash(1), execve(2), fork(2), chdir(2)
+HISTORIQUE
+Version 1.0 - Implémentation basique d'un shell simple avec support des commandes built-in et exécution de programmes externes.
