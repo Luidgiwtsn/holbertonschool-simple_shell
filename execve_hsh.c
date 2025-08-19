@@ -15,12 +15,12 @@ void execve_hsh(char **args, int line_number)
         cmd_path = args[0];
         if (access(cmd_path, F_OK) != 0)
         {
-            fprintf(stderr, "./hsh: %d: %s: not found \n", line_number, args[0]);
+            fprintf(stderr, "hsh: %d: %s: not found\n", line_number, args[0]);
             exit(127);
         }
         if (access(cmd_path, X_OK) != 0)
         {
-            fprintf(stderr, "./hsh: %d: %s: Permission denied\n", line_number, args[0]);
+            fprintf(stderr, "hsh: %d: %s: Permission denied\n", line_number, args[0]);
             exit(126);
         }
     }

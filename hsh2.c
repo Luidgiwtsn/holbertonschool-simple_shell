@@ -45,7 +45,7 @@ int main(void)
             const char *path = args[1] ? args[1] : _getenv("HOME");
             if (chdir(path) != 0)
             {
-                fprintf(stderr, "./hsh: %d: cd: can't cd to %s\n",
+                fprintf(stderr, "hsh: %d: cd: can't cd to %s\n",
                         line_number, path ? path : "");
             }
             free(line);
