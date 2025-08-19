@@ -14,7 +14,7 @@ extern char **environ;
 /* Function prototypes */
 char *read_and_clean_line(void);
 char **split_line(char *line);
-void execve_hsh(char **args, int line_number);
+void execve_hsh(char **args, int line_number, char *shell_name);
 void free_args(char **args);
 char *_getenv(const char *name);
 char *find_in_path(const char *cmd);
