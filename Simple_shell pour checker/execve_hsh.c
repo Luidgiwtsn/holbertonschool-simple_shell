@@ -6,7 +6,6 @@
 void execve_hsh(char **args, int line_number)
 {
     char *cmd_path;
-
     (void)line_number; /* évite warning unused parameter */
 
     if (args[0][0] == '/' || args[0][0] == '.')
