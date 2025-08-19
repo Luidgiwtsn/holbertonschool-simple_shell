@@ -6,7 +6,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>   
 
-
 #define MAX_ARGS 100
 
 char *read_and_clean_line(void);
@@ -20,17 +19,21 @@ int main(void)
 {
     char *line, **args = NULL;
     int status, line_number = 0;
-    int argc = 0;
+    
     pid_t pid;
+    int interactive = isatty(STDIN_FILENO);
 
     while (1)
     {
-      line = read_and_clean_line();
+        /* Le prompt est géré dans read_and_clean_line */
+        line = read_and_clean_line();
         if (line == NULL) 
-        {    printf("\n"); 
+        {    
+            if (interactive)
+                printf("\n"); 
             break;
         }
-		
+        
         args = split_line(line);
         if (args[0] == NULL)
         {
@@ -38,31 +41,38 @@ int main(void)
             free_args(args);
             continue;
         }
-		line_number++;
-        argc = 0;
-        while (args[argc] != NULL) 
-        argc++;
         
+        line_number++;
+        
+        /* Gestion de la commande exit */
         if (strcmp(args[0], "exit") == 0)
-            {free(line);
+        {
+            free(line);
             free_args(args);
             break;
-            }
+        }
        
+        /* Gestion de la commande cd */
         if (strcmp(args[0], "cd") == 0)
         {
             const char *path = args[1] ? args[1] : _getenv("HOME"); 
             if (chdir(path) != 0)
-                perror("cd");
-                  free(line);
+            {
+                /* Format d'erreur spécifique pour Holberton */
+                fprintf(stderr, "./hsh: %d: cd: can't cd to %s\n", 
+                       line_number, path ? path : "NULL");
+            }
+            free(line);
             free_args(args);
             continue;
         }
+        
+        /* Exécution des autres commandes */
         pid = fork();
         if (pid == 0)
         {
             execve_hsh(args, line_number);
-             exit(EXIT_FAILURE); 
+            exit(EXIT_FAILURE); 
         }
         else if (pid > 0)
         {
@@ -79,7 +89,4 @@ int main(void)
 
     return 0;
 }
-
-
-
 
