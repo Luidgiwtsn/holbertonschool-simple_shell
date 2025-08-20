@@ -1,67 +1,131 @@
-# hsh — Simple Shell
+# simple_shell — Simple Shell
 
-`hsh` is a minimalist command-line interpreter written in C, developed as part of the **Simple Shell** project at Holberton School. It mimics the behavior of `/bin/sh`, allowing users to execute Unix commands interactively or via scripts.
+`simple_shell` is a minimalist command-line interpreter written in C, developed as part of the **Simple Shell** project at Holberton School. It mimics the behavior of `/bin/sh`, allowing users to execute Unix commands interactively.
 
 ---
 
 ## 🚀 Features
 
-- Command execution using `fork()` and `execvp()`
+- Command execution using `fork()` and `execve()`
 - Interactive input handling with `getline()`
-- Advanced tokenization with support for quotes and shell operators (`|`, `>`, `&&`, etc.)
+- PATH environment variable support for command lookup
 - Built-in `exit` command to quit the shell
-- Built-in `env` command to display environment variables
-- Error messages formatted to match `/bin/sh` output
+- Built-in `cd` command for directory navigation
+- Error messages formatted with line numbers for debugging
+- Support for both interactive and non-interactive modes
 
 ---
 
 ## 🧪 Example Usage
 
 ```bash
-./hsh
-myshell$ echo "Hello World"
+$ ./simple_shell
+$ echo "Hello World"
 Hello World
-myshell$ ls -l
-myshell$ exit
+$ ls -l
+total 32
+-rwxr-xr-x 1 user user 8760 Aug 20 10:30 simple_shell
+-rw-r--r-- 1 user user 1024 Aug 20 10:29 main.c
+$ cd /tmp
+$ pwd
+/tmp
+$ cd
+$ exit
+$
+```
 
+---
 
-🛠️ Compilation 
+## 🛠️ Compilation
 
-To compile the shell : 
-gcc -Wall -Wextra -Werror -pedantic *.c -o hsh
+To compile the shell:
+```bash
+gcc -Wall -Wextra -Werror -pedantic *.c -o simple_shell
+```
 
-📁 Project Structure
+---
 
-File	Purpose
-main.c	Main shell loop
-smart_tokenize.c	Tokenizes input with quote/operator support
-main.h	Header for tokenizer
-builtins.c	Handles built-in commands (exit, env)
-README.md	Project documentation
+## 📁 Project Structure
 
-📚 Built-in Commands
-Command	Description
-exit	Exits the shell
-env	Prints environment variables
-🧠 Architecture Overview
-Input Handling The shell reads user input using getline() and removes the trailing newline.
+Basé sur les fichiers fournis :
 
-Tokenization Input is parsed using smart_tokenize(), which handles quoted strings and shell operators.
+| File | Purpose |
+|------|---------|
+| `main.h` | Header file with function prototypes and includes |
+| `AUTHORS` | List of project contributors |
+| Code files containing: ||
+| - `main()` | Main shell loop and command execution |
+| - `_getenv()` | Custom getenv implementation |
+| - `find_in_path()` | PATH directory search functionality |
+| - `free_args()` | Memory management for argument arrays |
+| - `read_and_clean_line()` | Input handling and line processing |
+| - `split_line()` | Command line tokenization |
+| - `execve_hsh()` | Command execution with error handling |
 
-Command Execution The shell forks a child process and uses execvp() to execute external commands.
+---
 
-Built-in Commands Commands like exit and env are handled internally without forking.
+## 📚 Built-in Commands
 
-Error Handling Errors are printed to stderr using perror() or custom messages that match /bin/sh format.
+| Command | Description |
+|---------|-------------|
+| `exit` | Exits the shell |
+| `cd [directory]` | Changes current directory (defaults to HOME) |
 
-🧪 Testing
-You can test your shell by comparing its output to /bin/sh:
+---
 
-bash
-echo "ls -l" | ./hsh
-echo "ls -l" | /bin/sh
-Both should produce identical results.
+## 🧠 Architecture Overview
 
-📜 License
+**Input Handling**  
+The shell reads user input using `getline()` and removes the trailing newline.
+
+**Tokenization**  
+Input is parsed using `split_line()`, which tokenizes commands and arguments.
+
+**Command Execution**  
+- Built-in commands are handled internally without forking
+- External commands are executed by forking a child process and using `execve()`
+- Commands are searched in PATH directories if not found as absolute/relative paths
+
+**Error Handling**  
+Errors are printed to stderr with line numbers and formatted messages that help with debugging.
+
+---
+
+## 🧪 Testing
+
+You can test your shell by comparing its behavior to standard shells:
+
+```bash
+# Test basic commands
+echo "ls -l" | ./simple_shell
+echo "pwd" | ./simple_shell
+
+# Test built-in commands
+echo -e "cd /tmp\npwd\nexit" | ./simple_shell
+
+# Test error handling
+echo "nonexistent_command" | ./simple_shell
+```
+
+---
+
+## 📋 Requirements
+
+- All files are compiled on Ubuntu 20.04 LTS
+- Code follows Betty coding style
+- No memory leaks
+- Maximum 5 functions per file
+- All function prototypes included in `main.h`
+
+---
+
+## 👥 Authors
+
+- **Luidgi Watson** - <11499@holbertonstudents.com>
+- **Thomas Decourt** - <11483@holbertonstudents.com>
+
+---
+
+## 📜 License
+
 This project is intended for educational purposes and is not licensed for commercial use.
-

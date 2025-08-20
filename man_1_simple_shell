@@ -1,100 +1,95 @@
-NOM
-simple_shell - Un interpréteur de commandes simple
-SYNOPSIS
-simple_shell
-DESCRIPTION
-simple_shell est un interpréteur de commandes basique qui fournit une interface en ligne de commande pour interagir avec le système d'exploitation. Il lit les commandes de l'utilisateur, les analyse et les exécute.
-FONCTIONNALITÉS
-Commandes intégrées (Built-ins)
-
-exit : Quitte le shell
-cd [RÉPERTOIRE] : Change le répertoire courant
-
-Sans argument, change vers le répertoire HOME
-Avec un argument, change vers le répertoire spécifié
-
-
-
-Exécution de programmes
-Le shell peut exécuter n'importe quel programme disponible dans le système en utilisant le nom du programme suivi de ses arguments.
-Gestion des processus
-
-Crée un processus enfant pour chaque commande externe
-Attend la fin d'exécution de chaque commande avant d'afficher le prochain prompt
-
-UTILISATION
-Mode interactif
-Lancez simplement simple_shell pour démarrer en mode interactif :
+.TH SIMPLE_SHELL 1 "August 2025" "Version 1.0" "User Commands"
+.SH NAME
+simple_shell \- simple command language interpreter
+.SH SYNOPSIS
+.B simple_shell
+.SH DESCRIPTION
+.B simple_shell
+is a command language interpreter that executes commands read from the standard input in interactive mode.
+.PP
+.B simple_shell
+is a simple implementation of a Unix shell. It provides a basic command-line interface that allows users to execute programs and navigate the file system. The shell displays a "$ " prompt in interactive mode.
+.SH OPTIONS
+.B simple_shell
+does not support any command-line options.
+.SH BUILT-IN COMMANDS
+The following commands are built into the shell:
+.TP
+.B exit
+Exit the shell.
+.TP
+.B cd [directory]
+Change the current working directory to
+.I directory.
+If no directory is specified, change to the value of the
+.B HOME
+environment variable.
+.SH COMMAND EXECUTION
+Commands are executed by searching for the command name in the directories listed in the
+.B PATH
+environment variable. If the command name contains a slash, it is executed directly as a pathname.
+.PP
+Each command is executed in a separate child process using
+.BR fork (2)
+and
+.BR execve (2).
+The shell waits for the command to complete before prompting for the next command.
+.SH ENVIRONMENT
+The shell uses the following environment variables:
+.TP
+.B HOME
+The default directory for the
+.B cd
+command.
+.TP
+.B PATH
+A colon-separated list of directories in which to search for commands.
+.SH EXIT STATUS
+The shell exits with status 0 on success, 127 if a command is not found, and 126 if a command is not executable.
+.SH EXAMPLES
+Start the shell in interactive mode:
+.PP
+.nf
+.RS
 $ ./simple_shell
-$$ ls -l
-$$ cd /tmp
-$$ pwd
-$$ exit
-Comportement
-
-Le shell affiche un prompt et attend une commande
-Après chaque commande, un nouveau prompt est affiché
-Le shell se termine avec la commande exit ou avec Ctrl+D (EOF)
-Les lignes vides sont ignorées
-
-EXEMPLES
-bash# Lancement du shell
-$ ./simple_shell
-
-# Lister les fichiers du répertoire courant
-$$ ls
-
-# Naviguer dans un répertoire
-$$ cd /home/user
-
-# Retourner au répertoire HOME
-$$ cd
-
-# Afficher le répertoire courant
-$$ pwd
-
-# Exécuter une commande avec arguments
-$$ ls -la
-
-# Quitter le shell
-$$ exit
-GESTION DES ERREURS
-
-Commande inexistante : Affiche un message d'erreur avec le numéro de ligne
-cd vers un répertoire inexistant : Affiche "cd: No such file or directory"
-Erreur de fork : Affiche "fork: Resource temporarily unavailable"
-
-LIMITATIONS
-
-Nombre maximum d'arguments par commande : 100
-Pas de support pour les pipes (|)
-Pas de support pour les redirections (>, <, >>)
-Pas de support pour les variables d'environnement personnalisées
-Pas de support pour l'expansion des wildcards (*, ?, [])
-Pas de support pour l'historique des commandes
-Pas de support pour l'auto-complétion
-
-VARIABLES D'ENVIRONNEMENT
-
-HOME : Utilisée par la commande cd quand aucun argument n'est fourni
-PATH : Utilisée pour rechercher les programmes exécutables
-
-CODES DE RETOUR
-
-0 : Succès
-1 : Erreur générale
-127 : Commande non trouvée
-
-FICHIERS
-
-main.h : Fichier d'en-tête contenant les déclarations de fonctions
-Aucun fichier de configuration n'est lu
-
-CONFORMITÉ
-Ce shell implémente un sous-ensemble minimal des fonctionnalités POSIX pour les shells.
-AUTEUR
-[Votre nom]
-VOIR AUSSI
-sh(1), bash(1), execve(2), fork(2), chdir(2)
-HISTORIQUE
-Version 1.0 - Implémentation basique d'un shell simple avec support des commandes built-in et exécution de programmes externes.
+$ ls -l
+$ cd /tmp
+$ pwd
+/tmp
+$ exit
+$
+.RE
+.fi
+.SH DIAGNOSTICS
+Error messages are written to standard error and include the shell name and line number:
+.PP
+.nf
+.RS
+simple_shell: 1: command_name: not found
+simple_shell: 2: cd: can't cd to directory_name
+.RE
+.fi
+.SH BUGS
+The shell does not support:
+.IP \(bu 2
+Command pipelines
+.IP \(bu 2
+Input/output redirection
+.IP \(bu 2
+Background processes
+.IP \(bu 2
+Command history
+.IP \(bu 2
+Variable expansion
+.IP \(bu 2
+Glob pattern matching
+.SH AUTHORS
+Luidgi Watson <11499@holbertonstudents.com>
+.br
+Thomas Decourt <11483@holbertonstudents.com>
+.SH SEE ALSO
+.BR sh (1),
+.BR bash (1),
+.BR execve (2),
+.BR fork (2),
+.BR chdir (2)

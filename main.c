@@ -2,7 +2,8 @@
 
 /**
  * main - Simple shell main function
- *
+ * @argc: Argument count
+ * @argv: Argument vector
  * Return: 0 on success
  */
 int main(int argc, char **argv)
@@ -18,7 +19,7 @@ int main(int argc, char **argv)
         if (line == NULL)
         {
             if (isatty(STDIN_FILENO))
-                write(STDOUT_FILENO, "\n", 1);
+        write(STDOUT_FILENO, "\n", 1);
             break;
         }
 
@@ -30,7 +31,7 @@ int main(int argc, char **argv)
             continue;
         }
 
-        /* Handle exit command */
+
         if (strcmp(args[0], "exit") == 0)
         {
             free(line);
@@ -38,7 +39,7 @@ int main(int argc, char **argv)
             break;
         }
 
-        /* Handle cd command */
+
         if (strcmp(args[0], "cd") == 0)
         {
             const char *path = args[1] ? args[1] : _getenv("HOME");
@@ -53,8 +54,7 @@ int main(int argc, char **argv)
             continue;
         }
 
-        /* Execute other commands */
-        line_number++;  /* Incrémenter ici pour les commandes externes */
+        line_number++;
         pid = fork();
         if (pid == 0)
         {
